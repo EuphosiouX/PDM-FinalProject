@@ -656,7 +656,7 @@ def main():
     if os.path.exists("Highscore.txt"):
         game_launch()
     else:
-        setup.first_setup()
+        setup.first_setup() # Call first_setup funtion from setup.py
         game_launch()
 
     # Setup the window attributes and run the program
