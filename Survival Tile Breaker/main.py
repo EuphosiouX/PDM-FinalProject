@@ -20,6 +20,8 @@ import arcade
 import random
 import os
 import re
+import setup
+import time
 
 # Setup the app window's size and name
 SCREEN_WIDTH = 1280
@@ -28,7 +30,6 @@ SCREEN_TITLE = 'Survival Tile Breaker'
 
 # Variable for the player sprite movement speed
 PLAYER_SPEED = 7
-
 
 def file_opener(file='Highscore.txt', mode='r'):
     '''
@@ -642,20 +643,27 @@ class GameOver(arcade.View):
             main_menu = MainMenu()
             self.window.show_view(main_menu)
 
+def game_launch():
+    ''' Function to show the code is running after running the code '''
+    time.sleep(1) # Wait 1 second
+    print('STARTING GAME....')
+    time.sleep(1) # Wait 1 second
+    print('GAME LAUNCHED')
+
 def main():
     """ Main method """
-    # Check if Highscore.txt exist or not, create one if it does not
+    # Check if Highscore.txt exist or not, call first_setup function from setup.py if it does not
     if os.path.exists("Highscore.txt"):
-        # Setup the window attributes and run the program
-        window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-        menu = MainMenu()
-        window.show_view(menu)
-        arcade.run()
+        game_launch()
     else:
-        f = file_opener(mode='w')
-        f.write('DO NOT EDIT MANUALLY!!!\nHighscore: 0') # Write the Highscore.txt
-        os.system( "attrib +h Highscore.txt") # Makes the file hidden so it is harder to access manually
-        print('FIRST LAUNCH SETUP SUCCESSFUL, RUN AGAIN THE PROGRAM TO START PLAYING') # Tell the users that the setup is successful and to run again the program(Showed on the terminal)
+        setup.first_setup()
+        game_launch()
+
+    # Setup the window attributes and run the program
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
+    menu = MainMenu()
+    window.show_view(menu)
+    arcade.run()
 
 if __name__ == "__main__":
     ''' Call main method'''
